@@ -2,9 +2,9 @@ var Game = new Phaser.Scene('Game');
 var Win = new Phaser.Scene('Win');
 
 Game.preload = function() {
-  this.load.image('ship', 'nave/spaceShips_001.png');
-  this.load.image('otherPlayer', 'nave/enemyBlack5.png');
-  this.load.image('star', 'nave/star_gold.png');
+  this.load.image('ship', 'nave/ship1.png');
+  this.load.image('otherPlayer', 'nave/ship2.png');
+  this.load.image('star', 'nave/star.png');
 }
 
 Game.create = function() {
@@ -82,14 +82,14 @@ Game.update = function() {
   
     this.physics.world.wrap(this.ship, 5);
 
-    // emit player movement
+    // miscarea jucatorului
     var x = this.ship.x;
     var y = this.ship.y;
     var r = this.ship.rotation;
     if (this.ship.oldPosition && (x !== this.ship.oldPosition.x || y !== this.ship.oldPosition.y || r !== this.ship.oldPosition.rotation)) {
       this.socket.emit('playerMovement', { x: this.ship.x, y: this.ship.y, rotation: this.ship.rotation });
     }
-    // save old position data
+    // salvare date pozitie veche
     this.ship.oldPosition = {
       x: this.ship.x,
       y: this.ship.y,
@@ -126,8 +126,6 @@ Win.create = function(scores) {
     y: -220
   });
   this.anims.staggerPlay('blast', group.getChildren(), 0.3);
-
-  
 }
 
 
